@@ -1,0 +1,33 @@
+{
+    "name": "thomas-sens/zapsign-bundle",
+    "type": "symfony-bundle",
+    "version": "1.0.0",
+    "require": {
+        "php": ">=8.2",
+        "guzzlehttp/guzzle": "^7.9",
+        "symfony/framework-bundle": "^7.1",
+        "symfony/dotenv": "^7.1",
+        "symfony/monolog-bundle": "^3.10",
+        "symfony/http-kernel": "^7.1",
+        "symfony/serializer": "^7.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thomas Alexandre Sens",
+            "email": "thomas.sens@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ThomasSens\\ZapsignBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ThomasSens\\ZapsignBundle\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+    }
+}
