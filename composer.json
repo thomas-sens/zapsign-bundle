@@ -1,6 +1,7 @@
 {
     "name": "thomas-sens/zapsign-bundle",
     "type": "symfony-bundle",
+    "minimum-stability": "stable",
     "version": "1.0.0",
     "require": {
         "php": ">=8.2",
