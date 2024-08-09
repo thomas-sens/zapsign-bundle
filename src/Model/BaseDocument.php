@@ -342,4 +342,9 @@ abstract class BaseDocument
     {
         return $this->token;
     }
+
+    public function setStatus($status): void
+    {
+        $this->status = $status;
+    }
 }

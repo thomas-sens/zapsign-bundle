@@ -260,6 +260,11 @@ abstract class SignersAttributes
         return $this->status;
     }
 
+    public function setStatus($status): void
+    {
+        $this->status = $status;
+    }
+
     /**
      * @return int|null
      */
@@ -351,6 +356,11 @@ abstract class SignersAttributes
     public function getSignUrl(): ?string
     {
         return $this->sign_url;
+    }
+
+    public function setSignUrl($sign_url): void
+    {
+        $this->sign_url = $sign_url;
     }
 
     public static function new(string $name, string $email): self

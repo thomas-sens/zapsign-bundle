@@ -34,6 +34,15 @@ class Utils
         return $serializer->deserialize($responseDataString, $class, 'json');
     }
 
+    public function convertArraYToClass(array $data, string $class): ?object
+    {
+        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
+        // Read the response data as string
+        $responseDataString = json_encode($data);
+        // Deserialize the JSON to the specified class
+        return $serializer->deserialize($responseDataString, $class, 'json');
+    }
+
     /**
      * Trata a resposta da API e loga informações relevantes.
      *

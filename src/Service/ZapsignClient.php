@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use ThomasSens\ZapsignBundle\Model\Document;
 use ThomasSens\ZapsignBundle\Model\DocumentList;
+use ThomasSens\ZapsignBundle\Model\Signer;
 use ThomasSens\ZapsignBundle\Service\Utils;
 
 class ZapsignClient
@@ -50,7 +51,13 @@ class ZapsignClient
         $url = $this->api_url . '/api/v1/docs/?api_token=' . $this->api_token;
         $data = $this->utils->documentToArray($doc);
 
-        return $this->makeRequest('POST', $url, $data, Document::class);
+        $document = $this->makeRequest('POST', $url, $data, Document::class);
+        $arrSigners = [];
+        foreach ($document->getSigners() as $signer) {
+            array_push($arrSigners,$this->utils->convertArraYToClass($signer, Signer::class));
+        }
+        $document->setSigners($arrSigners);
+        return $document;
     }
 
     /**

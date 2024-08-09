@@ -47,10 +47,11 @@ abstract class DocumentAttributes extends BaseDocument
      * @param Signer[] $signers Representa os signatários do documento
      * @return static
      */
-    public function new(string $name, string $urlPdf, array $signers): self
+    public function new(string $name, int $externalId, string $urlPdf, array $signers): self
     {
         return  $this
             ->setName($name)
+            ->setExternalId($externalId)
             ->setUrlPdf($urlPdf)
             ->setSigners($signers);
     }
