@@ -52,6 +52,7 @@ class ZapsignClient
         $data = $this->utils->documentToArray($doc);
 
         $document = $this->makeRequest('POST', $url, $data, Document::class);
+        dd($document);
         $arrSigners = [];
         foreach ($document->getSigners() as $signer) {
             array_push($arrSigners,$this->utils->convertArraYToClass($signer, Signer::class));
