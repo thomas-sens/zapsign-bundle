@@ -347,4 +347,15 @@ abstract class BaseDocument
     {
         $this->status = $status;
     }
+
+    public function setToken($token): void
+    {
+        $this->token = $token;
+    }
+
+    public function setSignedFile($signed_file): void
+    {
+        $this->signed_file = $signed_file;
+    }
+
 }

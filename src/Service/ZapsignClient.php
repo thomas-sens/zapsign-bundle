@@ -60,6 +60,17 @@ class ZapsignClient
         return $document;
     }
 
+    public function getDetailDoc(string $token) {
+        $url = $this->api_url . '/api/v1/docs/'.$token.'/?api_token=' . $this->api_token;
+        $document = $this->makeRequest('GET', $url, null, Document::class);
+        $arrSigners = [];
+        foreach ($document->getSigners() as $signer) {
+            array_push($arrSigners,$this->utils->convertArraYToClass($signer, Signer::class));
+        }
+        $document->setSigners($arrSigners);
+        return $document;
+    }
+
     /**
      * Faz uma requisição HTTP e trata a resposta.
      *
