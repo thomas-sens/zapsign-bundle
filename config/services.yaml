@@ -1,11 +1,12 @@
 # config/services.yaml
 services:
-    app.utils:
+    zapsign_bundle.utils:
         class: ThomasSens\ZapsignBundle\Service\Utils
         public: true
         arguments: ['@logger']
 
-    ThomasSens\ZapsignBundle\Service\ZapsignClient:
+    zapsign_bundle.zapsign_client:
+        class: ThomasSens\ZapsignBundle\Service\ZapsignClient
         public: true
-        arguments: ['@parameter_bag','@logger','@app.utils']
+        arguments: ['@parameter_bag','@logger','@zapsign_bundle.utils']
 
