@@ -86,9 +86,9 @@ class ZapsignClient
 
             $response = $this->client->request($method, $url, $options);
             $statusCode = $response->getStatusCode();
-
+            dump($statusCode);
+            dump($response->getBody());
             if ($statusCode === 200) {
-                dump($response->getBody());
                 return $this->utils->convertToCLass($response->getBody(), $class);
             }
 
