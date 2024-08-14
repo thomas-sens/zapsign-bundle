@@ -51,9 +51,7 @@ class ZapsignClient
         $url = $this->api_url . '/api/v1/docs/?api_token=' . $this->api_token;
         $data = $this->utils->documentToArray($doc);
 
-        dump($data);
         $document = $this->makeRequest('POST', $url, $data, Document::class);
-        dd($document);
         $arrSigners = [];
         foreach ($document->getSigners() as $signer) {
             array_push($arrSigners,$this->utils->convertArraYToClass($signer, Signer::class));
@@ -86,8 +84,7 @@ class ZapsignClient
 
             $response = $this->client->request($method, $url, $options);
             $statusCode = $response->getStatusCode();
-            dump($statusCode);
-            dump($response->getBody());
+
             if ($statusCode === 200) {
                 return $this->utils->convertToCLass($response->getBody(), $class);
             }

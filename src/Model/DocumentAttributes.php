@@ -52,7 +52,27 @@ abstract class DocumentAttributes extends BaseDocument
         return  $this
             ->setName($name)
             ->setExternalId($externalId)
-            ->setUrlPdf($urlPdf)
+            //->setUrlPdf($urlPdf)
+            ->setBase64Pdf($this->convert($urlPdf))
             ->setSigners($signers);
+    }
+
+    public function convert(string $filePath): ?string
+    {
+        // Verifica se o arquivo existe
+        if (!file_exists($filePath)) {
+            throw new \Exception("O arquivo não foi encontrado: " . $filePath);
+        }
+
+        // Lê o conteúdo do arquivo
+        $fileContent = file_get_contents($filePath);
+        if ($fileContent === false) {
+            throw new \Exception("Erro ao ler o arquivo: " . $filePath);
+        }
+
+        // Converte o conteúdo para Base64
+        $base64String = base64_encode($fileContent);
+
+        return $base64String;
     }
 }
