@@ -319,6 +319,11 @@ abstract class BaseDocument
         return $this->deleted;
     }
 
+    public function setDeleted(?bool $deleted): void
+    {
+        $this->deleted = $deleted;
+    }
+
     /**
      * @return string|null
      */
