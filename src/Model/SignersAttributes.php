@@ -313,6 +313,16 @@ abstract class SignersAttributes
         return $this->token;
     }
 
+     /**
+     * @param string|null
+     * @return self
+     */
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+        return $this;
+    }
+
     public function setSendAutomaticEmail(bool $send): void
     {
         $this->send_automatic_email = $send;

@@ -53,23 +53,44 @@ class ZapsignClient
         return $this->makeRequest('POST', $url, $data, Document::class);
     }
 
-    public function getDetailDoc(string $token) {
-        $url = $this->api_url . '/api/v1/docs/'.$token.'/?api_token=' . $this->api_token;
+    public function getDetailDoc(string $docToken): Document {
+        $url = $this->api_url . '/api/v1/docs/'.$docToken.'/?api_token=' . $this->api_token;
         return $this->makeRequest('GET', $url, null, Document::class);
     }
 
-    public function cancelDocument(string $token): Document
+    public function cancelDocument(string $docToken): Document
     {
-        $url = $this->api_url . '/api/v1/docs/'.$token.'/?api_token=' . $this->api_token;
+        $url = $this->api_url . '/api/v1/docs/'.$docToken.'/?api_token=' . $this->api_token;
         return $this->makeRequest('DELETE', $url, null, Document::class);
     }
 
-    public function createWebhook(string $token, string $url, string $type) {
+    public function addSigner(string $docToken, Signer $signer): Signer
+    {
+        $url = $this->api_url . '/api/v1/docs/'.$docToken.'/add-signer/?api_token=' . $this->api_token;
+        $data = $this->utils->signerToArray($signer);
+        return $this->makeRequest('POST', $url, $data, Signer::class);
+    }
+
+    public function updateSigner(string $signerToken, Signer $signer): Signer
+    {
+        $url = $this->api_url . '/api/v1/signers/'.$signerToken.'/?api_token=' . $this->api_token;
+        $data = $this->utils->signerToArray($signer);
+        return $this->makeRequest('POST', $url, $data, Signer::class);
+    }
+
+    public function deleteSigner(string $signerToken): void
+    {
+        $url = $this->api_url . '/api/v1/signer/'.$signerToken.'/remove/?api_token=' . $this->api_token;
+        $this->makeRequest('DELETE', $url, null, null);
+    }
+
+
+    public function createWebhook(string $docToken, string $url, string $type) {
         $url = $this->api_url . '/api/v1/user/company/webhook/';
         $data = [
             'url' => $url,
             'type' => $type,
-            'doc_token' => $token,
+            'doc_token' => $docToken,
             "headers" => [
                 "name" => "Authorization",
                 "value" => "Bearer ".$this->api_token
@@ -106,7 +127,7 @@ class ZapsignClient
 
             if ($statusCode === 200) {
                 if ($class==null) {
-                    return $response->getBody();
+                    return $response->getBody()->getContents();
                 } else {
                     if ($class == Document::class) {
                         return $this->converterDocumento($this->utils->convertToCLass($response->getBody(), Document::class));

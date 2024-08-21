@@ -8,6 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Psr\Log\LoggerInterface;
 use ThomasSens\ZapsignBundle\Model\Document;
+use ThomasSens\ZapsignBundle\Model\Signer;
 
 class Utils
 {
@@ -83,6 +84,26 @@ class Utils
     {
         $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
         $json = $serializer->serialize($doc, 'json');
+        $data = json_decode($json, true);
+        
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            // Handle JSON error
+            return null;
+        }
+
+        return $this->arrayKeysToSnakeCase($data);
+    }
+
+    /**
+     * Converte um objeto Signer para um array com chaves em snake_case.
+     *
+     * @param Signer $signer O signer a ser convertido.
+     * @return array|null O array convertido com chaves em snake_case ou null em caso de falha.
+     */
+    public function signerToArray(Signer $signer): ?array
+    {
+        $serializer = new Serializer([new ObjectNormalizer()], [new JsonEncoder()]);
+        $json = $serializer->serialize($signer, 'json');
         $data = json_decode($json, true);
         
         if (json_last_error() !== JSON_ERROR_NONE) {
