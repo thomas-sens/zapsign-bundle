@@ -4,13 +4,14 @@ namespace ThomasSens\ZapsignBundle\Service;
 
 use GuzzleHttp\Client as GClient;
 use GuzzleHttp\Exception\RequestException;
-
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\HttpFoundation\Request;
 use ThomasSens\ZapsignBundle\Model\Document;
 use ThomasSens\ZapsignBundle\Model\DocumentList;
 use ThomasSens\ZapsignBundle\Model\Signer;
 use ThomasSens\ZapsignBundle\Service\Utils;
+use GuzzleHttp\Psr7\Utils as Gutils;
 
 class ZapsignClient
 {
@@ -84,20 +85,22 @@ class ZapsignClient
         $this->makeRequest('DELETE', $url, null, null);
     }
 
-
     public function createWebhook(string $docToken, string $url, string $type) {
-        $url = $this->api_url . '/api/v1/user/company/webhook/';
+        $url = $this->api_url . '/api/v1/user/company/webhook/?api_token=' . $this->api_token;
         $data = [
             'url' => $url,
             'type' => $type,
-            'doc_token' => $docToken,
-            "headers" => [
-                "name" => "Authorization",
-                "value" => "Bearer ".$this->api_token
-            ]
+            'doc_token' => $docToken
         ];
 
-        return $this->makeRequest('POST', $url, $data, null);
+        $retorno = $this->makeRequest('POST', $url, $data, null);
+        $this->logger->info("Webhook criado para o documento $docToken: $retorno");
+        return $retorno;
+    }
+
+    public function processWebhook(Request $request): Document {
+        $stream = Gutils::streamFor($request->getContent());
+        return $this->converterDocumento($this->utils->convertToCLass($stream, Document::class));
     }
 
     /**
