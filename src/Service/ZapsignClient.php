@@ -85,16 +85,16 @@ class ZapsignClient
         $this->makeRequest('DELETE', $url, null, null);
     }
 
-    public function createWebhook(string $docToken, string $url, string $type) {
+    public function createWebhook(string $docToken, string $urlWebhook, string $type) {
         $url = $this->api_url . '/api/v1/user/company/webhook/?api_token=' . $this->api_token;
         $data = [
-            'url' => $url,
+            'url' => $urlWebhook,
             'type' => $type,
             'doc_token' => $docToken
         ];
 
         $retorno = $this->makeRequest('POST', $url, $data, null);
-        $this->logger->info("Webhook '$type' '$url' criado para o documento '$docToken': $retorno");
+        $this->logger->info("Webhook '$type' '$urlWebhook' criado para o documento '$docToken': $retorno");
         return $retorno;
     }
 
