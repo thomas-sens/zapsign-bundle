@@ -94,7 +94,7 @@ class ZapsignClient
         ];
 
         $retorno = $this->makeRequest('POST', $url, $data, null);
-        $this->logger->info("Webhook criado para o documento $docToken: $retorno");
+        $this->logger->info("Webhook '$type' '$url' criado para o documento '$docToken': $retorno");
         return $retorno;
     }
 
