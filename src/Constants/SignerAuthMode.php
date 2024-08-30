@@ -9,4 +9,5 @@ final class SignerAuthMode
     public const TOKEN_SMS = 'tokenSms';
     public const SCREEN_SIGN_TOKEN_SMS = 'assinaturaTela-tokenSms';
     public const DIGITAL_CERTIFICATE = 'certificadoDigital';
+    public const SCREEN_SIGN_CPF = 'assinaturaTela-cpf';
 }

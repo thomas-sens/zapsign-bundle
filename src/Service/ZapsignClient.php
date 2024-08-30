@@ -72,9 +72,9 @@ class ZapsignClient
         return $this->makeRequest('POST', $url, $data, Signer::class);
     }
 
-    public function updateSigner(string $signerToken, Signer $signer): Signer
+    public function updateSigner(Signer $signer): Signer
     {
-        $url = $this->api_url . '/api/v1/signers/'.$signerToken.'/?api_token=' . $this->api_token;
+        $url = $this->api_url . '/api/v1/signers/'.$signer->getToken().'/?api_token=' . $this->api_token;
         $data = $this->utils->signerToArray($signer);
         return $this->makeRequest('POST', $url, $data, Signer::class);
     }
