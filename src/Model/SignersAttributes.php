@@ -2,6 +2,8 @@
 
 namespace ThomasSens\ZapsignBundle\Model;
 
+use ThomasSens\ZapsignBundle\Constants\SignerAuthMode;
+
 abstract class SignersAttributes
 {
     /** @var string|null $redirect_link Link para redirecionamento após signatário assinar. */
@@ -159,6 +161,9 @@ abstract class SignersAttributes
     public function setAuthMode(?string $auth_mode): self
     {
         $this->auth_mode = $auth_mode;
+        //if ($auth_mode == SignerAuthMode::SCREEN_SIGN) {
+        //    $this->setRequireDocumentPhoto(false);
+        //} 
         return $this;
     }
 

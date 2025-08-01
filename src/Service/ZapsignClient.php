@@ -85,7 +85,7 @@ class ZapsignClient
         $this->makeRequest('DELETE', $url, null, null);
     }
 
-    public function createWebhook(string $docToken, string $urlWebhook, string $type) {
+    public function createWebhook(string $docToken, string $urlWebhook, string $type): void {
         $url = $this->api_url . '/api/v1/user/company/webhook/?api_token=' . $this->api_token;
         $data = [
             'url' => $urlWebhook,
@@ -95,7 +95,6 @@ class ZapsignClient
 
         $retorno = $this->makeRequest('POST', $url, $data, null);
         $this->logger->info("Webhook '$type' '$urlWebhook' criado para o documento '$docToken': $retorno");
-        return $retorno;
     }
 
     public function processWebhook(Request $request): Document {
@@ -111,7 +110,7 @@ class ZapsignClient
      * @param array|null $data Dados a serem enviados no corpo da requisição (para métodos POST).
      * @return mixed|null O resultado da deserialização ou null em caso de falha.
      */
-    private function makeRequest(string $method, string $url, array $data = null, ?string $class)
+    private function makeRequest(string $method, string $url, ?array $data = null, ?string $class): mixed
     {
         try {
             $options = [
@@ -151,11 +150,12 @@ class ZapsignClient
         return null;
     }
 
-    private function converterDocumento(Document $document) {
+    private function converterDocumento(Document $document): Document {
         $arrSigners = [];
         foreach ($document->getSigners() as $signer) {
             array_push($arrSigners,$this->utils->convertArraYToClass($signer, Signer::class));
         }
+
         $document->setSigners($arrSigners);
         return $document;
     }
