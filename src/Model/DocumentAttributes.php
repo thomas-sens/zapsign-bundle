@@ -10,11 +10,6 @@ abstract class DocumentAttributes extends BaseDocument
     /** @var Signer[]|null $signers Representa os signatários do documento */
     protected ?array $signers;
 
-    public function __construct()
-    {
-        $this->sandbox = true;
-    }
-
     /**
      * @return bool|null
      */
@@ -42,15 +37,27 @@ abstract class DocumentAttributes extends BaseDocument
     }
 
     /**
+     * @param bool $sandbox
+     * @return self
+     */
+    public function setSandbox(bool $sandbox): self
+    {
+        $this->sandbox = $sandbox;
+        return $this;
+    }
+
+    /**
      * @param string $name Nome do documento. Máximo 255 caracteres
+     * @param bool $sandbox Se é ambiente de teste
      * @param string $urlPdf URL pública do PDF. Máximo 10Mb
      * @param Signer[] $signers Representa os signatários do documento
      * @return static
      */
-    public function new(string $name, int $externalId, string $urlPdf, array $signers): self
+    public function new(string $name, bool $sandbox, int $externalId, string $urlPdf, array $signers): self
     {
         return  $this
             ->setName($name)
+            ->setSandbox($sandbox)
             ->setExternalId($externalId)
             //->setUrlPdf($urlPdf)
             ->setBase64Pdf($this->convert($urlPdf))
