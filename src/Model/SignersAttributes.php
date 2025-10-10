@@ -55,6 +55,19 @@ abstract class SignersAttributes
     protected ?string $custom_message;
     protected ?string $sign_url;
 
+    protected ?bool $hide_email;
+    protected ?bool $blank_email;
+    protected ?bool $hide_phone;
+    protected ?bool $blank_phone;
+    protected ?string $signature_image;
+    protected ?string $visto_image;
+    protected ?string $document_photo_url;
+    protected ?string $document_verse_photo_url;
+    protected ?string $selfie_photo_url;
+    protected ?string $selfie_photo_url2;
+    protected ?string $send_via;
+    protected ?bool $send_automatic_whatsapp_signed_file;
+
     /**
      * @return string|null
      */
@@ -384,4 +397,40 @@ abstract class SignersAttributes
             ->setName($name)
             ->setEmail($email);
     }
+
+    public function getHideEmail(): ?bool { return $this->hide_email; }
+    public function setHideEmail(?bool $hide_email): self { $this->hide_email = $hide_email; return $this; }
+
+    public function getBlankEmail(): ?bool { return $this->blank_email; }
+    public function setBlankEmail(?bool $blank_email): self { $this->blank_email = $blank_email; return $this; }
+
+    public function getHidePhone(): ?bool { return $this->hide_phone; }
+    public function setHidePhone(?bool $hide_phone): self { $this->hide_phone = $hide_phone; return $this; }
+
+    public function getBlankPhone(): ?bool { return $this->blank_phone; }
+    public function setBlankPhone(?bool $blank_phone): self { $this->blank_phone = $blank_phone; return $this; }
+
+    public function getSignatureImage(): ?string { return $this->signature_image; }
+    public function setSignatureImage(?string $signature_image): self { $this->signature_image = $signature_image; return $this; }
+
+    public function getVistoImage(): ?string { return $this->visto_image; }
+    public function setVistoImage(?string $visto_image): self { $this->visto_image = $visto_image; return $this; }
+
+    public function getDocumentPhotoUrl(): ?string { return $this->document_photo_url; }
+    public function setDocumentPhotoUrl(?string $url): self { $this->document_photo_url = $url; return $this; }
+
+    public function getDocumentVersePhotoUrl(): ?string { return $this->document_verse_photo_url; }
+    public function setDocumentVersePhotoUrl(?string $url): self { $this->document_verse_photo_url = $url; return $this; }
+
+    public function getSelfiePhotoUrl(): ?string { return $this->selfie_photo_url; }
+    public function setSelfiePhotoUrl(?string $url): self { $this->selfie_photo_url = $url; return $this; }
+
+    public function getSelfiePhotoUrl2(): ?string { return $this->selfie_photo_url2; }
+    public function setSelfiePhotoUrl2(?string $url): self { $this->selfie_photo_url2 = $url; return $this; }
+
+    public function getSendVia(): ?string { return $this->send_via; }
+    public function setSendVia(?string $send_via): self { $this->send_via = $send_via; return $this; }
+
+    public function getSendAutomaticWhatsappSignedFile(): ?bool { return $this->send_automatic_whatsapp_signed_file; }
+    public function setSendAutomaticWhatsappSignedFile(?bool $value): self { $this->send_automatic_whatsapp_signed_file = $value; return $this; }
 }
